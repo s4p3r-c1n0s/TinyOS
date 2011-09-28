@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ -r $1 ];then 
+q='XBOW'
+else
+q=$1
+fi
+D=`motelist | grep "$q" | gawk '{ print $2}'`
+if [ -r $2 ];then 
+r=0
+else 
+r=$2
+fi
+if [[ $q == 'Flying' ]];then
+make epic install.$r miniprog bsl,$D
+fi
+if [[ $q == 'XBOW' ]];then
+make telosb install.$r bsl,$D
+fi

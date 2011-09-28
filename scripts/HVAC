@@ -1,0 +1,14 @@
+#!/bin/bash
+HVAC=`motelist | grep "Flying" | gawk '{ print $2}'`
+TELOSB=`motelist | grep "XBOW" | gawk '{ print $2}'`
+cd $TOSROOT
+cd "./apps/Blink"
+make telosb install bsl,$TELOSB
+make epic install miniprog bsl,$HVAC
+cd `find ../ -name "trunk" | grep -v MAC`
+cd "./test/BaseStation"
+make telosb install.0 bsl,$TELOSB
+cd "../../src"
+make epic install.2 miniprog bsl,$HVAC
+cd "../pc"
+./dumpdata.py -comm serial@$TELOSB:115200
